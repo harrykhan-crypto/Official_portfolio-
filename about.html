@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About me — Hasnain Maqsood</title>
+<link rel="stylesheet" href="shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{brand:'#f97316'},fontFamily:{sora:['Sora','sans-serif'],lato:['Lato','sans-serif']}}}}</script>
+</head>
+<body data-page="about">
+<div id="site-nav"></div>
+<main class="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
+<div class="pt-10 pb-14 reveal"><p class="crumb"><a href="index.html">Home</a> / About me</p>
+<h1 class="page-title mt-3 text-4xl md:text-6xl">Designer first,<br><span class="shimmer">problem-solver always.</span></h1>
+<p class="mt-5 max-w-xl text-zinc-400">A little about how I think, what I use and where I have worked.</p></div>
+
+<section class="grid items-center gap-14 lg:grid-cols-2">
+  <div class="reveal from-left relative mx-auto w-full max-w-md">
+    <div class="absolute inset-x-6 bottom-0 aspect-square rounded-full bg-[#18181b] shadow-[0_0_80px_-20px_rgba(249,115,22,.4)]"></div>
+    <div class="absolute inset-x-2 -bottom-3 aspect-square rounded-full border border-dashed border-brand/40" style="animation:spin 40s linear infinite"></div>
+    <img src="photo.png" alt="Hasnain Maqsood" class="relative mx-auto w-3/4" style="filter:grayscale(1);-webkit-mask-image:linear-gradient(#000 82%,transparent);mask-image:linear-gradient(#000 82%,transparent)">
+  </div>
+  <div class="reveal from-right">
+    <h2 class="font-sora text-2xl font-bold md:text-3xl">Hi, I’m Hasnain Maqsood — I design things people don’t have to think about.</h2>
+    <p class="mt-5 leading-relaxed text-zinc-400">I’m a UI/UX designer who starts with the user’s problem, not the screen. I run quick research, map the flow, then build clean, accessible interfaces and hand them off in a form developers actually enjoy working with.</p>
+    <p class="mt-4 leading-relaxed text-zinc-400">When I’m not in Figma you’ll find me testing prototypes on friends, reading about behavioural design or tweaking a layout that was already fine.</p>
+    <div class="mt-8 grid grid-cols-3 gap-4">
+      <div class="card p-4 text-center"><b class="font-sora text-2xl text-brand"><span data-count="5">0</span>+</b><p class="mt-1 text-xs font-bold text-zinc-400">Years</p></div>
+      <div class="card p-4 text-center"><b class="font-sora text-2xl text-brand"><span data-count="20">0</span>+</b><p class="mt-1 text-xs font-bold text-zinc-400">Projects</p></div>
+      <div class="card p-4 text-center"><b class="font-sora text-2xl text-brand"><span data-count="80">0</span>+</b><p class="mt-1 text-xs font-bold text-zinc-400">Clients</p></div>
+    </div>
+    <div class="mt-8 flex gap-4"><a href="cv.pdf" download class="btn btn-primary magnetic">Download CV</a><a href="contact.html" class="btn btn-ghost magnetic">Let’s talk</a></div>
+  </div>
+</section>
+
+<section class="mt-28 grid gap-14 lg:grid-cols-2">
+  <div class="reveal from-left">
+    <h2 class="font-sora text-2xl font-bold">Skills</h2>
+    <div class="mt-8 space-y-6"><div><div class="mb-2 flex justify-between text-sm font-bold"><span>Figma & Prototyping</span><span class="text-brand">95%</span></div><div class="bar" data-w="95"><i></i></div></div><div><div class="mb-2 flex justify-between text-sm font-bold"><span>UX Research</span><span class="text-brand">88%</span></div><div class="bar" data-w="88"><i></i></div></div><div><div class="mb-2 flex justify-between text-sm font-bold"><span>Design Systems</span><span class="text-brand">90%</span></div><div class="bar" data-w="90"><i></i></div></div><div><div class="mb-2 flex justify-between text-sm font-bold"><span>Interaction & Motion</span><span class="text-brand">82%</span></div><div class="bar" data-w="82"><i></i></div></div><div><div class="mb-2 flex justify-between text-sm font-bold"><span>HTML / CSS / JS</span><span class="text-brand">74%</span></div><div class="bar" data-w="74"><i></i></div></div></div>
+  </div>
+  <div class="reveal from-right">
+    <h2 class="font-sora text-2xl font-bold">Experience</h2>
+    <div class="tl mt-8">
+      <div class="tl-item"><span class="tag">2026 – Now</span><h3 class="mt-2 font-bold">UI/UX Designer</h3><p class="text-sm text-zinc-500">Studio Name</p><p class="mt-2 text-sm text-zinc-400">Lead design for web and mobile products, own the design system.</p></div>
+      <div class="tl-item"><span class="tag">2026</span><h3 class="mt-2 font-bold">Product Designer</h3><p class="text-sm text-zinc-500">Not Experienced yet</p><p class="mt-2 text-sm text-zinc-400">Shipped onboarding and dashboard redesigns that lifted activation.</p></div>
+      <div class="tl-item"><span class="tag">2026</span><h3 class="mt-2 font-bold">Junior Designer</h3><p class="text-sm text-zinc-500">Agency Name</p><p class="mt-2 text-sm text-zinc-400">Landing pages, brand kits and a lot of learning.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="mt-24 reveal">
+  <h2 class="font-sora text-2xl font-bold">Tools I use daily</h2>
+  <div class="mt-6 flex flex-wrap gap-3"><span class="tag !px-5 !py-2 !text-sm">Figma</span><span class="tag !px-5 !py-2 !text-sm">FigJam</span><span class="tag !px-5 !py-2 !text-sm">Adobe XD</span><span class="tag !px-5 !py-2 !text-sm">Photoshop</span><span class="tag !px-5 !py-2 !text-sm">Illustrator</span><span class="tag !px-5 !py-2 !text-sm">Framer</span><span class="tag !px-5 !py-2 !text-sm">Notion</span><span class="tag !px-5 !py-2 !text-sm">Maze</span><span class="tag !px-5 !py-2 !text-sm">Webflow</span><span class="tag !px-5 !py-2 !text-sm">Tailwind CSS</span></div>
+</section>
+</main>
+<div id="site-footer"></div>
+<script src="shared.js"></script>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+</body>
+</html>

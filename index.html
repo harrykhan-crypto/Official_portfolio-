@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hasnain Maqsood — UI/UX Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { brand: '#f97316', ink: '#0d0d0f', card: '#18181b' },
+  fontFamily: { sora: ['Sora','sans-serif'], lato: ['Lato','sans-serif'] }
+}}}
+</script>
+<style>
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #0d0d0f;
+  color: #e4e4e7;
+  font-family: 'Lato', sans-serif;
+  overflow-x: hidden;
+  margin: 0;
+}
+
+::selection {
+  background: #f97316;
+  color: #000;
+}
+
+#glow {
+  position: fixed;
+  width: min(620px, 100vw);
+  height: min(620px, 100vw);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(circle, rgba(249,115,22,.16), transparent 65%);
+  transform: translate(-50%, -50%);
+  left: 30%;
+  top: 40%;
+}
+
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 40% 45%, #000 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 40% 45%, #000 20%, transparent 70%);
+}
+
+#particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.nav-link {
+  position: relative;
+  color: #a1a1aa;
+  transition: color .3s;
+  padding: 6px 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 2px;
+  width: 100%;
+  background: #f97316;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .35s cubic-bezier(.7,0,.2,1);
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #f97316;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.shimmer {
+  background: linear-gradient(100deg,#c2410c 0%,#f97316 35%,#fdba74 50%,#f97316 65%,#c2410c 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+
+@keyframes shimmer {
+  to { background-position: -250% 0; }
+}
+
+.caret {
+  display: inline-block;
+  width: 3px;
+  height: .85em;
+  background: #f97316;
+  margin-left: 6px;
+  vertical-align: -.05em;
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.role-mask {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  max-width: 100%;
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: box-shadow .3s, border-color .3s, color .3s;
+  will-change: transform;
+  max-width: 100%;
+}
+
+.btn-primary {
+  background: #f97316;
+  color: #fff;
+  box-shadow: 0 8px 28px -8px rgba(249,115,22,.7);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 12px 36px -6px rgba(249,115,22,.95);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);
+  transform: skewX(-20deg);
+  transition: left .7s;
+}
+
+.btn-primary:hover::before {
+  left: 140%;
+}
+
+.btn-ghost {
+  border: 1.5px solid #52525b;
+  color: #d4d4d8;
+}
+
+.btn-ghost:hover {
+  border-color: #f97316;
+  color: #f97316;
+}
+
+.btn-ghost svg {
+  transition: transform .3s;
+}
+
+.btn-ghost:hover svg {
+  transform: translateY(3px);
+}
+
+.social {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1c1c20;
+  display: grid;
+  place-items: center;
+  color: #a1a1aa;
+  border: 1px solid #27272a;
+  transition: all .3s;
+}
+
+.social:hover {
+  background: #f97316;
+  color: #fff;
+  border-color: #f97316;
+  transform: translateY(-4px) rotate(-8deg);
+  box-shadow: 0 10px 20px -8px rgba(249,115,22,.8);
+}
+
+.stats {
+  background: linear-gradient(145deg,#1b1b1f,#141417);
+  border: 1px solid #232327;
+  backdrop-filter: blur(8px);
+  width: 100%;
+}
+
+.portrait-wrap {
+  position: relative;
+  width: min(520px, 100%);
+  aspect-ratio: 1 / 1.08;
+  margin-inline: auto;
+}
+
+.circle {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 92%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 30%, #26262b, #151518 70%);
+  box-shadow: inset 0 0 60px rgba(249,115,22,.08), 0 0 90px -20px rgba(249,115,22,.35);
+}
+
+.ring {
+  position: absolute;
+  left: 50%;
+  bottom: -4%;
+  width: 104%;
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  border: 1.5px dashed rgba(249,115,22,.45);
+  animation: spin 40s linear infinite;
+}
+
+.ring::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: #f97316;
+  border-radius: 50%;
+  box-shadow: 0 0 18px 4px #f97316;
+}
+
+@keyframes spin {
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+#photo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 104%;
+  max-width: 100%;
+  transform: translateX(-50%);
+  object-fit: contain;
+  filter: grayscale(1) contrast(1.05);
+  z-index: 2;
+  transition: filter .6s;
+  will-change: transform;
+}
+
+.portrait-wrap:hover #photo {
+  filter: grayscale(.15) contrast(1.05);
+}
+
+#photoFallback {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  height: 96%;
+  max-width: 100%;
+  transform: translateX(-50%);
+  z-index: 2;
+  opacity: .9;
+}
+
+.chip {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 14px;
+  white-space: nowrap;
+  background: rgba(24,24,27,.85);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,.08);
+  font-size: 13px;
+  font-weight: 700;
+  color: #e4e4e7;
+  box-shadow: 0 18px 40px -18px #000;
+}
+
+.chip i {
+  flex-shrink: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #f97316;
+  box-shadow: 0 0 12px #f97316;
+}
+
+.chip small {
+  display: block;
+  font-weight: 400;
+  color: #a1a1aa;
+  font-size: 11px;
+}
+
+.scroll-cue {
+  width: 22px;
+  height: 36px;
+  border: 1.5px solid #52525b;
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-cue::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  width: 3px;
+  height: 7px;
+  margin-left: -1.5px;
+  background: #f97316;
+  border-radius: 2px;
+  animation: cue 1.6s infinite;
+}
+
+@keyframes cue {
+  0% { opacity: 0; transform: translateY(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(14px); }
+}
+
+/* Laptop screens */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .portrait-wrap {
+    width: min(440px, 100%);
+  }
+
+  #home .hero-in h1 {
+    font-size: clamp(2.5rem, 4.2vw, 4rem);
+  }
+
+  .chip {
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Tablets and smaller laptops */
+@media (max-width: 1023px) {
+  #home {
+    min-height: 100vh;
+  }
+
+  #nav {
+    padding: 22px 24px;
+  }
+
+  #nav > nav {
+    gap: 20px;
+  }
+
+  #home > div:nth-of-type(2) {
+    min-height: auto !important;
+    padding-top: 28px;
+    padding-bottom: 70px;
+  }
+
+  .portrait-wrap {
+    width: min(440px, 82vw);
+  }
+
+  .chip {
+    padding: 8px 11px;
+    font-size: 12px;
+  }
+
+  .hero-in.stats {
+    max-width: 360px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 640px) {
+  #nav {
+    padding: 18px 16px;
+    gap: 12px;
+  }
+
+  #nav > a:first-child {
+    font-size: 17px;
+  }
+
+  #nav > a:last-child {
+    padding: 9px 15px !important;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  #home > div:nth-of-type(2) {
+    padding: 20px 20px 72px;
+    gap: 30px;
+  }
+
+  #home .hero-in h1 {
+    font-size: clamp(2rem, 9vw, 3.4rem);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+
+  #home .hero-in h2 {
+    font-size: 23px;
+  }
+
+  #home .hero-in p {
+    max-width: 100%;
+  }
+
+  .portrait-wrap {
+    width: min(350px, 82vw);
+  }
+
+  .chip {
+    gap: 7px;
+    padding: 7px 9px;
+    font-size: 10px;
+    border-radius: 10px;
+  }
+
+  .chip small {
+    font-size: 9px;
+  }
+
+  .chip i {
+    width: 7px;
+    height: 7px;
+  }
+
+  .btn {
+    padding: 11px 18px;
+    font-size: 13px;
+  }
+
+  .hero-in.stats {
+    max-width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
+  .hero-in.stats > div {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .hero-in.stats b {
+    font-size: 18px;
+  }
+
+  .hero-in.stats p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  #glow {
+    width: 320px;
+    height: 320px;
+  }
+
+  .grid-bg {
+    background-size: 38px 38px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  #nav {
+    padding-inline: 12px;
+  }
+
+  #nav > a:first-child {
+    font-size: 15px;
+  }
+
+  #nav > a:last-child {
+    padding: 8px 11px !important;
+  }
+
+  #home > div:nth-of-type(2) {
+    padding-inline: 14px;
+  }
+
+  #home .hero-in h1 {
+    font-size: 8.5vw;
+  }
+
+  .portrait-wrap {
+    width: 78vw;
+  }
+
+  .chip {
+    padding: 6px 7px;
+    font-size: 9px;
+  }
+
+  .chip small {
+    font-size: 8px;
+  }
+
+  .hero-in.stats > div {
+    padding-inline: 7px;
+  }
+}
+
+/* Touchscreens: avoid hover-dependent behavior */
+@media (hover: none) {
+  .portrait-wrap:hover #photo {
+    filter: grayscale(1) contrast(1.05);
+  }
+
+  .social:hover {
+    transform: none;
+  }
+}
+
+/* Respect accessibility preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+</style>
+</head>
+<body data-page="home">
+<div id="glow"></div>
+
+<section class="relative min-h-screen overflow-hidden" id="home" data-page-root>
+  <div class="grid-bg"></div>
+  <canvas id="particles"></canvas>
+
+  <div id="site-nav"></div>
+
+  <!-- HERO -->
+  <div class="relative z-10 mx-auto grid max-w-7xl items-center gap-6 px-6 pb-16 pt-4 lg:grid-cols-2 lg:px-10 lg:pt-0" style="min-height:calc(100vh - 100px)">
+
+    <!-- left -->
+    <div class="order-2 lg:order-1">
+      <p class="hero-in font-lato text-lg text-zinc-400">Hi I am</p>
+      <h2 class="hero-in mt-1 font-sora text-2xl font-semibold text-zinc-200 md:text-[28px]">
+        <span id="nameText" aria-label="Hasnain Maqsood"></span>
+      </h2>
+
+      <h1 class="hero-in mt-4 font-sora text-5xl font-extrabold leading-tight md:text-7xl">
+        <span class="role-mask"><span id="role" class="shimmer inline-block">UI/UX designer</span></span><span class="caret"></span>
+      </h1>
+
+      <p class="hero-in mt-5 max-w-md text-[15px] leading-relaxed text-zinc-400">
+        I turn messy problems into calm, usable interfaces — research-led, pixel-careful and built to be shipped.
+      </p>
+
+      <div class="hero-in mt-6 flex gap-3">
+        <a href="#" class="social" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+        <a href="#" class="social" aria-label="LinkedIn"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5c0-1.2 0-2.8-1.7-2.8s-2 1.3-2 2.700V21h-4z"/></svg></a>
+        <a href="#" class="social" aria-label="Dribbble"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M5 7c5 1 10 1 14-1M3.500 13c6-1 11 0 15 6M8.500 3.500c4 5 6 10 6.500 17"/></svg></a>
+        <a href="#" class="social" aria-label="Behance"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 6h6a3 3 0 0 1 0 6H2zM2 12h7a3 3 0 0 1 0 6H2zM14 8h7M14.500 15a3 3 0 0 0 6 0 3 3 0 0 0-6 0h6"/></svg></a>
+      </div>
+
+      <div class="hero-in mt-9 flex flex-wrap gap-4">
+        <a href="contact.html" class="btn btn-primary magnetic">Hire Me</a>
+        <a href="cv.pdf" download class="btn btn-ghost magnetic">Download CV
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.500"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg></a>
+      </div>
+
+      <div class="hero-in stats mt-10 grid max-w-[360px] grid-cols-3 divide-x divide-zinc-700/60 rounded-lg px-1 py-5">
+        <div class="px-4"><b class="font-sora text-xl text-brand"><span data-count="5">0</span>+</b><p class="mt-1 text-[13px] font-bold text-zinc-300">Experiences</p></div>
+        <div class="px-4"><b class="font-sora text-xl text-brand"><span data-count="20">0</span>+</b><p class="mt-1 text-[13px] font-bold text-zinc-300">Project done</p></div>
+        <div class="px-4"><b class="font-sora text-xl text-brand"><span data-count="80">0</span>+</b><p class="mt-1 text-[13px] font-bold text-zinc-300">Happy Clients</p></div>
+      </div>
+    </div>
+
+    <!-- right -->
+    <div class="order-1 flex justify-center lg:order-2 lg:justify-end">
+      <div class="portrait-wrap" id="portrait">
+        <div class="ring" id="ring"></div>
+        <div class="circle" id="circle"></div>
+
+        <!-- PUT YOUR TRANSPARENT PHOTO AT: photo.png (same folder) -->
+        <img id="photo" src="photo.png" alt="Hasnain Maqsood" onerror="this.style.display='none';document.getElementById('photoFallback').style.display='block'">
+        <svg id="photoFallback" style="display:none" viewBox="0 0 200 260" fill="#2a2a2f"><circle cx="100" cy="70" r="42"/><path d="M20 260c0-70 30-110 80-110s80 40 80 110z"/><text x="100" y="215" text-anchor="middle" font-size="11" fill="#f97316" font-family="Lato">add photo.png</text></svg>
+
+        <!-- floating chips -->
+        <div class="chip" data-float style="top:12%; left:-4%"><i></i><div>Figma<small>Design systems</small></div></div>
+        <div class="chip" data-float style="top:36%; right:-6%"><i></i><div>5+ years<small>of crafting UX</small></div></div>
+        <div class="chip" data-float style="bottom:16%; left:-8%"><i></i><div>User Research<small>Insights that stick</small></div></div>
+        <div class="chip" data-float style="bottom:2%; right:2%"><i></i><div>Prototyping<small>Fast &amp; testable</small></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-in absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex">
+    <div class="scroll-cue"></div>
+  </div>
+</section>
+
+<script src="shared.js"></script>
+<script>
+/* ---------- 1. Intro timeline ---------- */
+const name = 'Hasnain Maqsood';
+const nameEl = document.getElementById('nameText');
+nameEl.innerHTML = [...name].map(c => `<span class="inline-block" style="opacity:0">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+tl.from('#nav > *', { y: -40, opacity: 0, duration: .8, stagger: .08 })
+  .from('.hero-in', { y: 40, opacity: 0, duration: .9, stagger: .12 }, '-=.4')
+  .to('#nameText span', { opacity: 1, y: 0, startAt: { y: 18 }, duration: .5, stagger: .035 }, '-=1.2')
+  .from('#circle', { scale: .3, opacity: 0, duration: 1.2, ease: 'expo.out' }, 0.2)
+  .from('#ring', { scale: .6, opacity: 0, duration: 1.4, ease: 'expo.out' }, 0.35)
+  .from('#photo, #photoFallback', { y: 120, opacity: 0, duration: 1.2, ease: 'power4.out' }, 0.6)
+  .from('.chip', { scale: .4, opacity: 0, x: (i) => (i % 2 ? 80 : -80), duration: .9, stagger: .15, ease: 'back.out(1.8)' }, 1.1)
+  .add(startFloating);
+
+/* counters */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const end = +el.dataset.count, o = { v: 0 };
+  gsap.to(o, { v: end, duration: 2.2, delay: 1.4, ease: 'power2.out', onUpdate: () => el.textContent = Math.round(o.v) });
+});
+
+/* ---------- 2. Floating chips: bob + drift out / back in ---------- */
+function startFloating() {
+  document.querySelectorAll('[data-float]').forEach((chip, i) => {
+    gsap.to(chip, { y: i % 2 ? 14 : -14, x: i % 2 ? -6 : 6, duration: 2.4 + i * .4, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+    // periodically fly away and return (comes in / goes out)
+    const cycle = () => {
+      gsap.timeline({ delay: 5 + i * 2.3, onComplete: cycle })
+        .to(chip, { opacity: 0, scale: .6, filter: 'blur(6px)', duration: .6, ease: 'power2.in' })
+        .to(chip, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: .9, delay: 1.2, ease: 'back.out(1.8)' });
+    };
+    cycle();
+  });
+}
+
+/* ---------- 3. Rotating role text: slides out / slides in ---------- */
+const roles = ['UI/UX designer', 'Product designer', 'Design thinker', 'Interface crafter'];
+let ri = 0;
+const roleEl = document.getElementById('role');
+setInterval(() => {
+  ri = (ri + 1) % roles.length;
+  gsap.timeline()
+    .to(roleEl, { yPercent: -110, opacity: 0, duration: .5, ease: 'power3.in' })
+    .add(() => { roleEl.textContent = roles[ri]; })
+    .fromTo(roleEl, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .6, ease: 'power3.out' });
+}, 3600);
+
+/* ---------- 4. Mouse: spotlight, portrait parallax, magnetic buttons ---------- */
+const glow = document.getElementById('glow');
+const photo = document.getElementById('photo');
+const fb = document.getElementById('photoFallback');
+const circle = document.getElementById('circle');
+const chips = document.querySelectorAll('.chip');
+const gx = gsap.quickTo(glow, 'left', { duration: .8 }), gy = gsap.quickTo(glow, 'top', { duration: .8 });
+
+window.addEventListener('mousemove', e => {
+  gx(e.clientX); gy(e.clientY);
+  const nx = e.clientX / innerWidth - .5, ny = e.clientY / innerHeight - .5;
+  gsap.to([photo, fb], { x: nx * 22, rotationY: nx * 6, duration: 1, ease: 'power2.out' });
+  gsap.to(circle, { x: nx * -14, y: ny * -10, duration: 1.2, ease: 'power2.out' });
+  chips.forEach((c, i) => gsap.to(c, { xPercent: nx * (i % 2 ? -14 : 14), duration: 1.2, ease: 'power2.out', overwrite: 'auto' }));
+});
+
+
+/* ---------- 5. Particles (floating embers) ---------- */
+const cv = document.getElementById('particles'), ctx = cv.getContext('2d');
+let W, H, dots = [];
+function size() { W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; }
+size(); addEventListener('resize', size);
+for (let i = 0; i < 46; i++) dots.push({ x: Math.random() * 1600, y: Math.random() * 900, r: Math.random() * 1.8 + .4, s: Math.random() * .35 + .1, a: Math.random() * .6 + .15 });
+(function loop() {
+  ctx.clearRect(0, 0, W, H);
+  dots.forEach(d => {
+    d.y -= d.s; d.x += Math.sin(d.y / 60) * .25;
+    if (d.y < -5) { d.y = H + 5; d.x = Math.random() * W; }
+    ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, 7);
+    ctx.fillStyle = `rgba(249,115,22,${d.a})`; ctx.shadowColor = '#f97316'; ctx.shadowBlur = 8; ctx.fill();
+  });
+  requestAnimationFrame(loop);
+})();
+
+</script>
+</body>
+</html>

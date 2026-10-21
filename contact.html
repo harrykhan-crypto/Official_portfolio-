@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact me — Hasnain Maqsood</title>
+<link rel="stylesheet" href="shared.css">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>tailwind.config={theme:{extend:{colors:{brand:'#f97316'},fontFamily:{sora:['Sora','sans-serif'],lato:['Lato','sans-serif']}}}}</script>
+</head>
+<body data-page="contact">
+<div id="site-nav"></div>
+<main class="relative z-10 mx-auto max-w-7xl px-6 lg:px-10">
+<div class="pt-10 pb-14 reveal"><p class="crumb"><a href="index.html">Home</a> / Contact me</p>
+<h1 class="page-title mt-3 text-4xl md:text-6xl">Let’s build something <span class="shimmer">great together</span></h1>
+<p class="mt-5 max-w-xl text-zinc-400">Send a message and I’ll get back to you within 24 hours.</p></div>
+<section class="grid gap-10 lg:grid-cols-5"><div class="reveal from-left space-y-5 lg:col-span-2"><div class="card flex items-center gap-5 p-6"><div class="icon-box shrink-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div><div><p class="text-xs text-zinc-500">Email</p><p class="font-bold">Instagram harr.y_.11</p></div></div><div class="card flex items-center gap-5 p-6"><div class="icon-box shrink-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div><div><p class="text-xs text-zinc-500">Phone</p><p class="font-bold">+92 335 0157649</p></div></div><div class="card flex items-center gap-5 p-6"><div class="icon-box shrink-0"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6 7-11a7 7 0 1 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.500"/></svg></div><div><p class="text-xs text-zinc-500">Location</p><p class="font-bold">Nowshera, Pakistan</p></div></div><div class="flex gap-3 pt-2"><a href="#" class="social" aria-label="Instagram">IG</a><a href="#" class="social" aria-label="LinkedIn">in</a><a href="#" class="social" aria-label="Dribbble">Dr</a><a href="#" class="social" aria-label="Behance">Bē</a></div></div>
+<form id="f" class="card reveal from-right space-y-5 p-8 lg:col-span-3" novalidate>
+ <div class="grid gap-5 md:grid-cols-2"><input class="field" name="name" placeholder="Your name" required><input class="field" type="email" name="email" placeholder="Email address" required></div>
+ <input class="field" name="subject" placeholder="Subject">
+ <textarea class="field" name="msg" rows="6" placeholder="Tell me about your project…" required></textarea>
+ <div class="flex items-center gap-4"><button class="btn btn-primary magnetic" type="submit">Send message</button><p id="status" class="text-sm"></p></div>
+</form></section></main>
+<div id="site-footer"></div>
+<script src="shared.js"></script>
+<script>
+// Opens the visitor's mail app with the message filled in. Replace the address, or connect Formspree/EmailJS for real sending.
+const TO='khanhussnain532@gmail.com';
+document.getElementById('f').addEventListener('submit',e=>{e.preventDefault();
+  const f=e.target,s=document.getElementById('status');
+  if(!f.name.value||!f.email.value.includes('@')||!f.msg.value){s.textContent='Please fill in name, a valid email and a message.';s.style.color='#f87171';gsap.fromTo(f,{x:-8},{x:0,duration:.5,ease:'elastic.out(1,.3)'});return}
+  s.textContent='Opening your mail app…';s.style.color='#f97316';
+  location.href=`mailto:${TO}?subject=${encodeURIComponent(f.subject.value||'Portfolio enquiry')}&body=${encodeURIComponent(f.msg.value+'\n\n— '+f.name.value+' ('+f.email.value+')')}`;});
+</script>
+</body>
+</html>
